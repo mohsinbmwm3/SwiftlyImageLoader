@@ -39,6 +39,7 @@ extension ViewController: UITableViewDataSource {
         }
 
         let url = imageUrls[indexPath.row]
+        cell.currentImageUrl = url
         cell.customImageView.setImage(from: url, placeholder: UIImage(systemName: "photo"))
         return cell
     }

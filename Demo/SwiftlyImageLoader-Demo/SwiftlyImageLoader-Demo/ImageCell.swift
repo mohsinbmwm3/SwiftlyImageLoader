@@ -11,6 +11,7 @@ import SwiftlyImageLoader
 class ImageCell: UITableViewCell {
     static let reuseId = "ImageCell"
     let customImageView = UIImageView()
+    var currentImageUrl: URL?
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -30,5 +31,10 @@ class ImageCell: UITableViewCell {
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        customImageView.cancelImageLoad(for: currentImageUrl)
     }
 }
