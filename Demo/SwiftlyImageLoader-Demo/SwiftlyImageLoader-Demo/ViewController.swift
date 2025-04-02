@@ -6,12 +6,12 @@
 //
 
 import UIKit
-import SwiftlyImageLoader
+import SwiftlyImageLoaderUIKit
 
 class ViewController: UIViewController {
     let tableView = UITableView()
-    let imageUrls: [URL] = (1...150).compactMap {
-        URL(string: "https://picsum.photos/id/\($0)/500/300")
+    let imageUrls: [URL] = (1...145).compactMap {
+        URL(string: "https://picsum.photos/id/\($0)/1920/1080")
     }
 
     override func viewDidLoad() {

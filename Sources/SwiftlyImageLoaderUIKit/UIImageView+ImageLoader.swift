@@ -1,12 +1,12 @@
 //
-//  UIImageView+Extension.swift
+//  Untitled.swift
 //  SwiftlyImageLoader
 //
 //  Created by Mohsin Khan on 02/04/25.
 //
 
-#if canImport(UIKit)
 import UIKit
+import SwiftlyImageLoader
 
 public extension UIImageView {
     @MainActor
@@ -27,4 +27,3 @@ public extension UIImageView {
         ImageLoader.shared.cancelLoad(for: url)
     }
 }
-#endif
