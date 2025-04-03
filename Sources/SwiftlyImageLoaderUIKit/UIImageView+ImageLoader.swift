@@ -8,6 +8,8 @@
 import UIKit
 import SwiftlyImageLoader
 
+/// Extension that adds image loading capability to `UIImageView` using `SwiftlyImageLoader`.
+/// This enables asynchronous image loading with placeholder support, caching, and cancellation.
 public extension UIImageView {
     @MainActor
     func setImage(from url: URL?, placeholder: UIImage? = nil) {
