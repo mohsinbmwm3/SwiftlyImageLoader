@@ -30,9 +30,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let config = SwiftlyImageLoaderConfiguration(
             autoCancelOnReuse: true,
             enableBatchCancelation: true,
-            logLevel: .verbose // or .none or .basic
+            logLevel: .verbose, // or .none or .basic
+            memoryCacheTTL: 10, // 10 seconds in-memory cache expiry
+            diskCacheTTL: 10 // 10 seconds in-memory cache expiry
         )
-        ImageLoader.setup(with: .default)
+        ImageLoader.setup(with: config)
     }
 }
 

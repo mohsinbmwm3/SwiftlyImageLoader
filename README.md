@@ -9,9 +9,47 @@ A lightweight, fast, and highly configurable Swift image loading library with bu
 - 🧠 Smart in-memory & disk caching
 - 🧹 Automatic cancellation for reused views
 - 🎛️ Configurable via `SwiftlyImageLoaderConfiguration`
+- ✅ Retry logic and TTL configuration
 - 🧩 Modular targets: UIKit / AppKit / SwiftUI
 - 🛠 Zero dependencies, pure Swift
 - 📈 Great for performance-sensitive use cases (e.g. fast-scrolling lists)
+
+---
+
+## 🧠 How It Works – Caching Flow
+
+When you request an image:
+
+```
+Request Image
+   ↓
+Check in-memory cache (fast, volatile)
+   ↓
+If not found → Check disk cache (persistent)
+   ↓
+If not found → Download from network
+   ↓
+Save to memory + disk caches for future use
+```
+
+- Memory Cache (`ImageCache`) → uses NSCache, evicts on memory pressure
+- Disk Cache (`DiskCache`) → saves across app launches, TTL-aware
+
+This ensures blazing-fast UI (via RAM) + reduced network usage (via disk).
+
+---
+
+## ⚙️ Configuration Example
+
+```swift
+ImageLoader.setup(with: SwiftlyImageLoaderConfiguration(
+  memoryCacheTTL: 60,              // In-memory cache expires after 60 seconds
+  diskCacheTTL: 86400,             // Disk cache expires after 24 hours
+  autoCancelOnReuse: true,         // Cancel previous task for reused views
+  enableBatchCancelation: true,    // Allows cancelAll() to stop all loading tasks
+  logLevel: .verbose                // Enables verbose logging for debugging
+))
+```
 
 ---
 

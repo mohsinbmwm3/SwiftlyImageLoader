@@ -7,9 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		9A2101D32D9DA0500008A05F /* SwiftlyImageLoader in Frameworks */ = {isa = PBXBuildFile; productRef = 9A9100BF2D9D54CD008BA5ED /* SwiftlyImageLoader */; };
-		9A2101DF2D9DA1190008A05F /* SwiftlyImageLoader in Frameworks */ = {isa = PBXBuildFile; productRef = 9A2101DE2D9DA1190008A05F /* SwiftlyImageLoader */; };
-		9A2101E22D9DA1F40008A05F /* SwiftlyImageLoaderUIKit in Frameworks */ = {isa = PBXBuildFile; productRef = 9A2101E12D9DA1F40008A05F /* SwiftlyImageLoaderUIKit */; };
+		426B5FD52DCD163600927827 /* SwiftlyImageLoader in Frameworks */ = {isa = PBXBuildFile; productRef = 426B5FD42DCD163600927827 /* SwiftlyImageLoader */; };
+		426B5FDB2DCD163600927827 /* SwiftlyImageLoaderUIKit in Frameworks */ = {isa = PBXBuildFile; productRef = 426B5FDA2DCD163600927827 /* SwiftlyImageLoaderUIKit */; };
+		426B5FDD2DCD168F00927827 /* SwiftlyImageLoaderUIKit in Frameworks */ = {isa = PBXBuildFile; productRef = 426B5FDC2DCD168F00927827 /* SwiftlyImageLoaderUIKit */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,7 +36,7 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		9A63796E2D9D582F0032F890 /* Exceptions for "SwiftlyImageLoader-Demo" folder in "SwiftlyImageLoader-Demo" target */ = {
+		426B5FE82DCD170000927827 /* Exceptions for "SwiftlyImageLoader-Demo" folder in "SwiftlyImageLoader-Demo" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				"SwiftlyImageLoader-Demo/Info.plist",
@@ -49,7 +49,7 @@
 		9A9100732D9D539E008BA5ED /* SwiftlyImageLoader-Demo */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
-				9A63796E2D9D582F0032F890 /* Exceptions for "SwiftlyImageLoader-Demo" folder in "SwiftlyImageLoader-Demo" target */,
+				426B5FE82DCD170000927827 /* Exceptions for "SwiftlyImageLoader-Demo" folder in "SwiftlyImageLoader-Demo" target */,
 			);
 			path = "SwiftlyImageLoader-Demo";
 			sourceTree = "<group>";
@@ -61,9 +61,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9A2101E22D9DA1F40008A05F /* SwiftlyImageLoaderUIKit in Frameworks */,
-				9A2101DF2D9DA1190008A05F /* SwiftlyImageLoader in Frameworks */,
-				9A2101D32D9DA0500008A05F /* SwiftlyImageLoader in Frameworks */,
+				426B5FDD2DCD168F00927827 /* SwiftlyImageLoaderUIKit in Frameworks */,
+				426B5FD52DCD163600927827 /* SwiftlyImageLoader in Frameworks */,
+				426B5FDB2DCD163600927827 /* SwiftlyImageLoaderUIKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -122,9 +122,9 @@
 			);
 			name = "SwiftlyImageLoader-Demo";
 			packageProductDependencies = (
-				9A9100BF2D9D54CD008BA5ED /* SwiftlyImageLoader */,
-				9A2101DE2D9DA1190008A05F /* SwiftlyImageLoader */,
-				9A2101E12D9DA1F40008A05F /* SwiftlyImageLoaderUIKit */,
+				426B5FD42DCD163600927827 /* SwiftlyImageLoader */,
+				426B5FDA2DCD163600927827 /* SwiftlyImageLoaderUIKit */,
+				426B5FDC2DCD168F00927827 /* SwiftlyImageLoaderUIKit */,
 			);
 			productName = "SwiftlyImageLoader-Demo";
 			productReference = 9A9100712D9D539E008BA5ED /* SwiftlyImageLoader-Demo.app */;
@@ -203,7 +203,7 @@
 			mainGroup = 9A9100682D9D539E008BA5ED;
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
-				9A2101E02D9DA1F40008A05F /* XCLocalSwiftPackageReference "../../SwiftlyImageLoader" */,
+				426B5FD32DCD163600927827 /* XCLocalSwiftPackageReference "../../SwiftlyImageLoader" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 9A9100722D9D539E008BA5ED /* Products */;
@@ -287,7 +287,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "/Users/khanm1/Learn/projects/SwiftlyImageLoader/Demo/SwiftlyImageLoader-Demo/SwiftlyImageLoader-Demo/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/SwiftlyImageLoader-Demo/SwiftlyImageLoader-Demo/Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -313,7 +313,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "/Users/khanm1/Learn/projects/SwiftlyImageLoader/Demo/SwiftlyImageLoader-Demo/SwiftlyImageLoader-Demo/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/SwiftlyImageLoader-Demo/SwiftlyImageLoader-Demo/Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -560,24 +560,24 @@
 /* End XCConfigurationList section */
 
 /* Begin XCLocalSwiftPackageReference section */
-		9A2101E02D9DA1F40008A05F /* XCLocalSwiftPackageReference "../../SwiftlyImageLoader" */ = {
+		426B5FD32DCD163600927827 /* XCLocalSwiftPackageReference "../../SwiftlyImageLoader" */ = {
 			isa = XCLocalSwiftPackageReference;
 			relativePath = ../../SwiftlyImageLoader;
 		};
 /* End XCLocalSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		9A2101DE2D9DA1190008A05F /* SwiftlyImageLoader */ = {
+		426B5FD42DCD163600927827 /* SwiftlyImageLoader */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = SwiftlyImageLoader;
 		};
-		9A2101E12D9DA1F40008A05F /* SwiftlyImageLoaderUIKit */ = {
+		426B5FDA2DCD163600927827 /* SwiftlyImageLoaderUIKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = SwiftlyImageLoaderUIKit;
 		};
-		9A9100BF2D9D54CD008BA5ED /* SwiftlyImageLoader */ = {
+		426B5FDC2DCD168F00927827 /* SwiftlyImageLoaderUIKit */ = {
 			isa = XCSwiftPackageProductDependency;
-			productName = SwiftlyImageLoader;
+			productName = SwiftlyImageLoaderUIKit;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
