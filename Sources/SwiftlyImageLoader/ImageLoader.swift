@@ -34,12 +34,20 @@ public final class ImageLoader: @unchecked Sendable {
         shared.config = config
     }
 
-    /// Loads an image asynchronously from a URL.
-    /// Automatically checks memory cache, disk cache, or downloads if needed.
+    /// Loads an image asynchronously from a URL, with optional transformation and caching.
+    ///
+    /// This method checks the in-memory cache and disk cache before attempting a network download.
+    /// An optional image transformation closure can be applied to modify the image (e.g., resizing, cropping, filtering)
+    /// before it is cached and returned.
+    ///
     /// - Parameters:
-    ///   - url: The URL to load the image from.
-    ///   - completion: Completion handler with the loaded image or nil.
-    public func loadImage(from url: URL, completion: @escaping @Sendable (CrossPlatformImage?) -> Void) {
+    ///   - url: The URL from which to load the image.
+    ///   - transform: An optional closure to transform the loaded image before caching and display.
+    ///   - completion: A closure called with the final image or `nil` if loading fails.
+
+    public func loadImage(from url: URL,
+                          transform: (@Sendable (CrossPlatformImage) -> CrossPlatformImage)?,
+                          completion: @escaping @Sendable (CrossPlatformImage?) -> Void) {
         taskQueue.async {
             if let existing = self.ongoingTasks[url] {
                 self.log("🔁 Joining existing task for: \(url.absoluteString)", level: .verbose)
@@ -55,14 +63,27 @@ public final class ImageLoader: @unchecked Sendable {
 
                 if let data = await ImageCache.shared.get(forKey: key), let image = CrossPlatformImage(data: data) {
                     self.log("✅ Loaded from memory cache: \(url.absoluteString)", level: .basic)
-                    self.callCompletions(for: url, with: image)
+
+                    let finalImage = await MainActor.run {
+                        transform?(image) ?? image
+                    }
+
+                    self.callCompletions(for: url, with: finalImage)
                     return
                 }
 
                 if let data = await DiskCache.shared.get(forKey: key), let image = CrossPlatformImage(data: data) {
                     self.log("✅ Loaded from disk cache: \(url.absoluteString)", level: .basic)
-                    await ImageCache.shared.set(data, forKey: key)
-                    self.callCompletions(for: url, with: image)
+                    
+                    let finalImage = await MainActor.run {
+                        transform?(image) ?? image
+                    }
+                    
+                    if let finalData = finalImage.pngData() {
+                        await ImageCache.shared.set(finalData, forKey: key)
+                    }
+                    
+                    self.callCompletions(for: url, with: finalImage)
                     return
                 }
 
@@ -70,9 +91,23 @@ public final class ImageLoader: @unchecked Sendable {
                     let (data, _) = try await self.session.data(from: url)
                     if let image = CrossPlatformImage(data: data) {
                         self.log("✅ Downloaded from network: \(url.absoluteString)", level: .basic)
-                        await ImageCache.shared.set(data, forKey: key)
-                        await DiskCache.shared.save(data, forKey: key)
-                        self.callCompletions(for: url, with: image)
+                        let finalImage = await MainActor.run {
+                            transform?(image) ?? image
+                        }
+                        
+                        let finalData: Data?
+                        switch config.imageEncoding {
+                        case .png:
+                            finalData = finalImage.pngData()
+                        case .jpeg(let quality):
+                            finalData = finalImage.jpegData(compressionQuality: quality)
+                        }
+                        
+                        if let finalData = finalImage.pngData() {
+                            await ImageCache.shared.set(finalData, forKey: key)
+                            await DiskCache.shared.save(finalData, forKey: key)
+                        }
+                        self.callCompletions(for: url, with: finalImage)
                     } else {
                         self.log("⚠️ Failed to decode image: \(url.absoluteString)", level: .basic)
                         self.callCompletions(for: url, with: nil)

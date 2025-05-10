@@ -9,7 +9,12 @@ import AppKit
 import SwiftlyImageLoader
 
 public extension NSImageView {
-    func setImage(from url: URL?, placeholder: NSImage? = nil) {
+    func setImage(
+        from url: URL?,
+        placeholder: NSImage? = nil,
+        transform: (@Sendable (NSImage) -> NSImage)? = nil,
+        completion: ((NSImage?) -> Void)? = nil
+    ) {
         self.image = placeholder
         guard let url = url else { return }
 
@@ -24,3 +29,17 @@ public extension NSImageView {
         ImageLoader.shared.cancelLoad(for: url)
     }
 }
+
+#if os(macOS)
+public enum ImageTransforms {
+    public static func circular(for size: CGSize) -> (@Sendable (NSImage) -> NSImage) {
+        return { $0.circular(size: size) }
+    }
+    public static func resized(to size: CGSize) -> (@Sendable (NSImage) -> NSImage) {
+        return { $0.resized(to: size) }
+    }
+    public static func grayscale() -> (@Sendable (NSImage) -> NSImage) {
+        return { $0.applyGrayscaleFilter() }
+    }
+}
+#endif

@@ -7,6 +7,11 @@
 
 import Foundation
 
+public enum ImageEncoding {
+    case png
+    case jpeg(quality: CGFloat)
+}
+
 public struct SwiftlyImageLoaderConfiguration: @unchecked Sendable {
     
     /// Automatically cancels any existing image download task for the same URL when a new one is initiated.
@@ -16,6 +21,9 @@ public struct SwiftlyImageLoaderConfiguration: @unchecked Sendable {
     /// Enables the ability to cancel all ongoing image requests in bulk using `ImageLoader.cancelAll()`.
     /// Useful when dismissing screens or stopping a bulk image loading session.
     public var enableGlobalCancellation: Bool
+    
+    /// Allow the user to control how the image is converted to Data before storing it (PNG vs JPEG)
+    public var imageEncoding: ImageEncoding = .png
     
     /// Optional expiration durations (in seconds) for memory and disk caches
     public var memoryCacheTTL: TimeInterval?  // nil = forever

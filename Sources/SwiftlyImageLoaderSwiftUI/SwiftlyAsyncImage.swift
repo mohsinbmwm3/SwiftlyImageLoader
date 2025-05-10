@@ -8,35 +8,44 @@
 import SwiftUI
 import SwiftlyImageLoader
 
-public struct SwiftlyAsyncImage: View {
-    @State private var image: CrossPlatformImage?
-    private let url: URL?
-    private let placeholder: () -> AnyView
+public enum SwiftlyAsyncImagePhase: Equatable {
+    case empty
+    case success(CrossPlatformImage)
+    case failure
+}
 
-    public init(url: URL?, placeholder: @escaping () -> AnyView = {
-        AnyView(Color.gray.opacity(0.2))
-    }) {
+public struct SwiftlyAsyncImage<Content: View>: View {
+    @State private var phase: SwiftlyAsyncImagePhase = .empty
+
+    private let url: URL?
+    private let transform: (@Sendable (CrossPlatformImage) -> CrossPlatformImage)?
+    private let content: (SwiftlyAsyncImagePhase) -> Content
+
+    public init(
+        url: URL?,
+        transform: (@Sendable (CrossPlatformImage) -> CrossPlatformImage)? = nil,
+        @ViewBuilder content: @escaping (SwiftlyAsyncImagePhase) -> Content
+    ) {
         self.url = url
-        self.placeholder = placeholder
+        self.transform = transform
+        self.content = content
     }
 
     public var body: some View {
-        ZStack {
-            if let img = image {
-                #if os(iOS)
-                Image(uiImage: img)
-                #elseif os(macOS)
-                Image(nsImage: img)
-                #endif
-            } else {
-                placeholder()
-                    .onAppear {
-                        guard let url else { return }
-                        ImageLoader.shared.loadImage(from: url) { loadedImage in
-                            self.image = loadedImage
+        content(phase)
+            .onAppear {
+                guard phase == .empty, let url else { return }
+
+                ImageLoader.shared.loadImage(from: url, transform: transform) { loadedImage in
+                    DispatchQueue.main.async {
+                        if let img = loadedImage {
+                            self.phase = .success(img)
+                        } else {
+                            self.phase = .failure
                         }
                     }
+                }
             }
-        }
     }
 }
+

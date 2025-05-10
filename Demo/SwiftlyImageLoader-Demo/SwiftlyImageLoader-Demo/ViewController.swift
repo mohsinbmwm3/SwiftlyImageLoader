@@ -40,8 +40,17 @@ extension ViewController: UITableViewDataSource {
 
         let url = imageUrls[indexPath.row]
         cell.currentImageUrl = url
-        cell.customImageView.setImage(from: url, placeholder: UIImage(systemName: "photo"))
+        
+        DispatchQueue.main.async {
+            let size = cell.customImageView.bounds.size
+            cell.customImageView.setImage(
+                from: url,
+                placeholder: UIImage(systemName: "photo"),
+                transform: ImageTransforms.circular(for: size)
+            )
+        }
         return cell
     }
 }
+
 
